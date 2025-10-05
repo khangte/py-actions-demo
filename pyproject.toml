@@ -23,4 +23,7 @@ pythonpath = ["src"]    # test에서 src를 자동 경로로 잡음
 [tool.ruff]
 # ruff(린터/포매터) 기본 규칙
 line-length = 100
+
+# 최상위 select -> lint.select 로 이동
+[tool.ruff.lint]
 select = ["E", "F", "I"]    # E: pycodestyle, F: pyflakes, I: isort(임포트 정리)
