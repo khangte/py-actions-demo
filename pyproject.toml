@@ -15,12 +15,6 @@ requires-python = ">=3.11"  # 지원 파이썬 버전
 authors = [{ name = "khangte" }]
 dependencies = []           # 런타임 의존성 (없으면 빈 배열)
 
-[tool.setuptools]
-package-dir = {"" = "src"}
-
-[tool.setuptools.package.find]
-where = ["src"]
-
 [tool.pytest.ini_options]
 # pytest 기본 옵션들
 addopts = "-q"          # 출력 최소화(quiet)
@@ -34,3 +28,12 @@ line-length = 100
 # 최상위 select -> lint.select 로 이동
 [tool.ruff.lint]
 select = ["E", "F", "I"]    # E: pycodestyle, F: pyflakes, I: isort(임포트 정리)
+
+# ⬇️ 여기 두 블록이 핵심 (오탈자 주의!)
+[tool.setuptools]
+package-dir = {"" = "src"}         # "루트 패키지"의 실제 디렉토리는 src
+
+[tool.setuptools.packages.find]
+where = ["src"]                     # src 레이아웃에서 패키지 자동 탐색
+# include = ["*"]                  # (선택) 기본값 *, 필요시 주석 해제
+# exclude = ["tests*"]             # (선택)
