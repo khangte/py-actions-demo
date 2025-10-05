@@ -33,7 +33,8 @@ jobs:
 
       # 4. 린트(스타일/정적분석)
       - name: Lint (ruff)
-        run: ruff check .
+        # import 정렬/사소한 포맷팅을 자동 수정
+        run: ruff check . --fix
 
       # 5. 단위 테스트 실행
       - name: Run tests
