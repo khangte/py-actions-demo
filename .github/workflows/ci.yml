@@ -1,0 +1,40 @@
+# .github/workflows/ci.yml
+
+# 1) 워크플로우 이름
+name: CI (Python)
+
+# 2) 언제 동작할지: main에 push/PR 시 실행
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # GitHub 호스티드 러너(리눅스)
+
+    steps:
+      # 1. 저장소 체크아웃
+      - uses: actions/checkout@v4
+
+      # 2. 파이썬 셋업 (3.12 버전, pip 캐시 활성화)
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      # 3. 테스트/린트 도구 설치
+      - name: Install tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest ruff
+
+      # 4. 린트(스타일/정적분석)
+      - name: Lint (ruff)
+        run: ruff check .
+
+      # 5. 단위 테스트 실행
+      - name: Run tests
+        run: pytest -q --maxfail=1  # 첫 실패에서 중단

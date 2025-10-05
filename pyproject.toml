@@ -1,0 +1,26 @@
+# pyproject.toml
+
+[build-system]
+# 패키징/빌드를 위해 setuptools 및 wheel 사용
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+# 패키지 메타데이터
+name = "py-actions-demo"    # 패키지 이름 (PyPI 배포 시 사용")
+version = "0.1.0"           # 버전 (태깅/릴리즈와 맞추면 관리가 쉬움)
+description = "tiny demo for GitHub Actions CI/CD"
+readme = "README.md"
+requires-python = ">=3.11"  # 지원 파이썬 버전
+authors = [{ name = "khangte" }]
+dependencies = []           # 런타임 의존성 (없으면 빈 배열)
+
+[tool.pytest.ini_options]
+# pytest 기본 옵션들
+addopts = "-q"          # 출력 최소화(quiet)
+pythonpath = ["src"]    # test에서 src를 자동 경로로 잡음
+
+[tool.ruff]
+# ruff(린터/포매터) 기본 규칙
+line-length = 100
+select = ["E", "F", "I"]    # E: pycodestyle, F: pyflakes, I: isort(임포트 정리)
