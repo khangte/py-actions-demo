@@ -1,0 +1,25 @@
+name: Deploy to EC2
+
+on:
+  push:
+    tags:
+      - "v*.*.*"   # 이미지가 올라간 같은 태그에서 배포
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH deploy
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}       # ★ EC2 공인IP/도메인
+          username: ${{ secrets.SSH_USER }}   # ★ ec2-user/ubuntu 등
+          key: ${{ secrets.SSH_KEY }}         # ★ PEM 내용(멀티라인) 저장
+          script: |
+            set -e
+            cd /opt/py-actions-demo
+            # public GHCR이면 로그인 불필요, private이면 아래 두 줄 추가:
+            # echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ secrets.GHCR_USER }} --password-stdin
+            docker compose pull
+            docker compose up -d
+            docker image prune -f
