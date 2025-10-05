@@ -38,4 +38,6 @@ jobs:
 
       # 5. 단위 테스트 실행
       - name: Run tests
+        env:
+          PYTHONPATH: src
         run: pytest -q --maxfail=1  # 첫 실패에서 중단

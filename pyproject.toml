@@ -18,7 +18,8 @@ dependencies = []           # 런타임 의존성 (없으면 빈 배열)
 [tool.pytest.ini_options]
 # pytest 기본 옵션들
 addopts = "-q"          # 출력 최소화(quiet)
-pythonpath = ["src"]    # test에서 src를 자동 경로로 잡음
+# pythonpath = ["src"]    # test에서 src를 자동 경로로 잡음
+#                         # pytest-pythonpath 플러그인을 설치했을 때만 동작함
 
 [tool.ruff]
 # ruff(린터/포매터) 기본 규칙
