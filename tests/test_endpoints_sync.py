@@ -1,4 +1,5 @@
 from fastapi.testclient import TestClient
+
 from py_actions_demo.app import app
 
 client = TestClient(app)  # 동기 클라이언트
@@ -12,3 +13,8 @@ def test_add_ok():
     res = client.get("/add", params={"a": 2, "b": 3})
     assert res.status_code == 200
     assert res.json() == {"result": 5}
+
+def test_subtract_ok():
+    res = client.get("/subtract", params={"a": 3, "b": 2})
+    assert res.status_code == 200
+    assert res.json() == {"result": 1}
